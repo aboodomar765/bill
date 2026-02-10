@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب فاتورة الماء</title>
+    <style>
+        *{
+            margin: 0;
+           padding: 0;
+           background-color: rgb(5, 1, 41);
+           
+        }
+        .content{
+            
+            
+            margin: auto;
+            color: aliceblue;
+            width: 95%;
+          
+          
+            
+            
+
+        }
+
+        .asth{
+            display: flex;
+            flex-direction: column;
+             justify-content: center;
+             align-items: center;
+            width: 100%;
+        }
+
+        h3{
+           text-align: center;
+           margin: 20px;
+
+        }
+        input{
+            color: rgb(250, 248, 248);
+            padding: 8px;
+            border: none;
+            background-color: rgb(4, 40, 71);
+            border-radius: 5px;
+            margin: 5px;
+            width: 50%;
+
+
+
+        }
+        .inputs{
+            margin: auto;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+        
+        button{
+            border: none;
+            background-color: antiquewhite;
+            padding: 4px;
+            width: 50%;
+            margin: 8px 0;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bolder;
+
+        }
+
+        button:hover{
+            background-color: rgb(68, 90, 109); ;
+ 
+        }
+
+        table  {
+
+          
+
+            text-align: center;
+            padding: 5px;
+            width: 70%;
+            border: 2px solid wheat;
+            
+        }
+        th{
+             border: 2px solid wheat;
+
+        }
+        td{
+             border: 2px solid wheat;
+        }
+       
+         
+          
+          
+        
+      
+        
+    </style>
+    
+</head>
+<body>
+
+<div class="content">
+
+    <div>
+         <h3>
+            حساب كمية الاستهلاك للمياه والصرف الصحي 
+        </h3>
+    </div>
+ 
+<div class="asth">
+ <label for="mc">كمية الاستهلاك</label>
+ <input type="number" required placeholder="cubic meter" id="mc">
+ </div>
+
+ <div  class="inputs">
+<label for="water">قيمة الاستهلاك بالدينار الاردني للمياه</label>    
+
+<input type="number" placeholder="water" id="water">
+
+<label for="sewage">قيمة الاستهلاك بالدينار الاردني للصرف الصحي</label>
+<input type="number" placeholder="sewage" id="sewage">
+
+
+<label for="sum">مجموع الاستهلاك االكلي </label>
+<input type="number" placeholder="sum" id="sum">
+<input type="date" id="date">
+
+ <button id="creat">احفظ</button>
+ <div id="error">
+    
+ </div>
+ <button id="deleteAll" onclick="deleteAll()">حذف الكل</button>
+
+
+ <table>
+    <tr>
+        <th>القيمة بالدينار الاردني</th>
+        <th>كمية الاستهلاك</th>
+        <th>التاريخ</th>
+        <th>حذف</th>
+        
+    </tr>
+    <tbody id="tbody">
+       
+         
+    </tbody>
+ </table>
+
+  </div>
+
+
+</div>   
+
+<script >
+ let mc = document.getElementById('mc');
+let water = document.getElementById('water');
+let sewage = document.getElementById('sewage');
+let sum = document.getElementById('sum');
+let date=document.getElementById("date")
+let creat=document.getElementById("creat")
+let tbody=document.getElementById("tbody")
+let error=document.getElementById("error")
+
+
+
+let mcc=0;
+let mccc=0;
+
+
+
+
+mc.onkeyup = function() {
+
+
+    
+ if (mc.value>0 && mc.value<= 6){
+    water.value=2.25;
+
+    sewage.value= 0.23;
+   
+    
+
+ }
+
+else if (mc.value>=7 && mc.value<=12){
+    mcc=mc.value-6;
+    water.value= (2.25 + mcc*0.55).toFixed(2);
+
+    mccc=mc.value-6;
+    sewage.value= (0.23 + mccc*0.10).toFixed(2);
+    
+}
+
+else if (mc.value>=13 && mc.value<=18){
+    mcc=mc.value-12;
+    water.value= (2.25 + 6*0.55 +mcc*0.7).toFixed(2); 
+
+    mccc=mc.value-12;
+    sewage.value= (0.23 + 6*0.10 +mccc*0.5).toFixed(2);
+    
+
+   
+   }
+   
+else if (mc.value>=19 && mc.value<=24)  { 
+    mcc=mc.value-18;
+    water.value= (2.25 + 6*0.55 + 6*0.7+ mcc*1.1).toFixed(2); 
+
+    mccc=mc.value-18;
+    sewage.value= (0.23 + 6*0.10 + 6*0.5+ mccc*0.7).toFixed(2);
+    
+}
+  else if (mc.value>=25 && mc.value<=30){
+    mcc=mc.value-24;
+    water.value= (2.25 + 6*0.55 + 6*0.7+ 6*1.1 + mcc*1.4).toFixed(2); 
+
+     mccc=mc.value-24;
+    sewage.value= (0.23 + 6*0.10 + 6*0.5+ 6*0.7+mccc*0.85).toFixed(2);
+
+  }
+
+else if (mc.value>=31 && mc.value<=42){
+    mcc=mc.value-30;
+    water.value= (2.25 + 6*0.55 + 6*0.7+ 6*1.1+  6*1.4+ mcc*1.8).toFixed(2); 
+
+    mccc=mc.value-30;
+    sewage.value= (0.23 + 6*0.10 + 6*0.5+ 6*0.7+ 6*0.85+mccc*0.95).toFixed(2);
+
+
+
+
+}
+
+else if ( mc.value<=43){
+
+    mcc=mc.value-42;
+    water.value= (2.25 + 6*0.55 + 6*0.7+ 6*1.1+6*1.4+ 12*1.8+mcc*2.2).toFixed(2); 
+
+     mccc=mc.value-42;
+    sewage.value= (0.23 + 6*0.10 + 6*0.5+ 6*0.7+6*0.85+12*0.95+mccc*1.2).toFixed(2);
+
+
+}
+
+
+
+
+   sum.value = (+water.value + +sewage.value).toFixed(2);
+
+   }
+
+
+
+
+
+
+
+    let alldata;
+    if(localStorage.product !=null )
+        {
+         alldata = JSON.parse(localStorage.product);
+        }else{
+         alldata=[];
+        }
+
+
+
+creat.onclick = function (){
+                    let onedata = { 
+                     mc: mc.value,
+                     sum:sum.value,
+                    date:date.value,  };  
+if(mc.value!=""){
+     alldata.push(onedata);
+     localStorage.setItem('product',JSON.stringify(alldata)) ;
+    
+     
+    
+  cleardata();
+  shwodata();
+
+
+}else{
+  error.innerHTML=` <h4>الرجاء تعبئة خانة الاستهلاك </h4>  `;
+     }
+}
+
+
+
+
+shwodata()
+
+function shwodata(){
+
+    let table ="";
+   for(let i=0; i<alldata.length;i++){
+   
+   
+      table+= `
+          <tr>
+            <td>${alldata[i].sum}</td>
+             <td>${alldata[i].mc}</td>
+             <td>${alldata[i].date}</td>
+             <td><button style="width: 100%; "id="delete" onclick="deleteData(${i})">delete</button></td>
+
+           </tr>  
+                        `
+              }
+    
+      tbody.innerHTML=table; 
+
+
+}
+
+
+function cleardata(){
+
+
+    mc.value =""
+    water.value=""
+    sewage.value=""
+
+    sum.value=""
+    date.value=""
+
+
+}
+
+ function deleteAll(){
+   
+      localStorage.clear()
+       alldata.splice(0)
+        shwodata()
+
+}
+
+function deleteData(i){
+   alldata.splice(i,1);
+   localStorage.product=JSON.stringify(alldata);
+   shwodata()
+}
+ 
+
+        
+       
+        
+
+
+
+
+   
+
+   
+     
+
+
+</script>
+
+</body>
+</html>
